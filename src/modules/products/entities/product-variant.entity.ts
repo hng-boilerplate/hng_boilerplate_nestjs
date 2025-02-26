@@ -1,8 +1,13 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Product } from './product.entity';
+import { BeforeInsert, Entity, PrimaryColumn } from 'typeorm';
+import { v4 as uuidV4 } from 'uuid';
 
 @Entity()
 export class ProductVariant {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn({ type: 'uuid' })
   id: string;
+
+  @BeforeInsert()
+  generateId() {
+    this.id = uuidV4();
+  }
 }
